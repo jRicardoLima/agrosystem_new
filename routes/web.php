@@ -14,6 +14,12 @@ Route::get('/teste',function (){
 //    $cnpj = convertCNPJ('61648289000144');
 //    //61.648.289/0001-44
 //    echo $cnpj;
+
+   //$company = \App\Company::onlyTrashed()->where('id','=',5)->get()->first();
+
+    //$company->restore();
+
+    //var_dump(Route::currentRouteAction());
 });
 
 Route::group(['namespace' => 'Src', 'as' => 'source.'],function(){
@@ -45,6 +51,10 @@ Route::group(['namespace' => 'Src', 'as' => 'source.'],function(){
         Route::get('/companies/delete/{company}','CompanyController@delete')->name('companies.delete');
         Route::resource('/companies','CompanyController');
         /** Fim dos fornecedores */
+
+        /** Contas */
+        Route::resource('/accounts','AccountController');
+        /** Fim das contas */
         Route::resource('/system','System');
 
     });
