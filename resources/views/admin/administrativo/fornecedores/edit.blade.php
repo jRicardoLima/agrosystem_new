@@ -25,6 +25,7 @@
         <div class="card-body" style="background-color: lightslategray">
             <form action="{{route('source.companies.update',['company' => $company->id])}}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="tab-content" id="tab_content">
                     <div class="tab-pane fade show active" id="company_information_private" role="tabpanel" aria-labelledby="company_information_private">
                         <div class="form-group">
