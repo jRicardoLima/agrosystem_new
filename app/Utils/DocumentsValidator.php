@@ -4,6 +4,7 @@
 namespace App\Utils;
 
 
+use Brazanation\Documents\Cnpj;
 use Brazanation\Documents\Cpf;
 use Brazanation\Documents\Exception\InvalidDocument;
 
@@ -56,6 +57,20 @@ class DocumentsValidator
             return true;
         } else {
             return false;
+        }
+
+    }
+
+    public function cnpjValid(string $cnpj)
+    {
+        $cnpjClear = clearVars(['.','/','-'],$cnpj);
+
+        $document = Cnpj::createFromString($cnpjClear);
+
+        if(false === $document){
+            return false;
+        } else {
+            return true;
         }
 
     }
