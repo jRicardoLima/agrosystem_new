@@ -18,10 +18,38 @@ class Company extends Model
         'document_primary',
         'zipcode',
         'state',
+        'city',
         'street',
         'neighborhood',
         'contact_one',
         'contact_two',
         'email',
     ];
+
+
+    public function setPhysicPersonAttribute($value)
+    {
+        return $this->attributes['physic_person'] = ($value == "1" ? 1 : 0);
+    }
+    public function setDocumentCompanyIdentificationAttribute($value)
+    {
+        return $this->attributes['document_company_identification'] = clearVars(['.','-','_','/'],$value);
+    }
+
+    public function getDocumentCompanyIdentificationAttribute($value)
+    {
+        return convertCNPJ($value);
+    }
+    public function setDocumentPrimaryAttribute($value)
+    {
+        return $this->attributes['document_primary'] = clearVars(['.','-','_','/'],$value);
+    }
+    public function getDocumentPrimaryAttribute($value)
+    {
+        return convertCPF($value);
+    }
+    public function setZipcodeAttribute($value)
+    {
+        return $this->attributes['zipcode'] = clearVars(['.','-','/'],$value);
+    }
 }
