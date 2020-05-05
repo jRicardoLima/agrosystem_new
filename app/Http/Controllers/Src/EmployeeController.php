@@ -197,6 +197,7 @@ class EmployeeController extends Controller
         $employee->save();
 
         Employee::where('id','=',$id)->delete();
+        Log::channel('systemLog')->info('Usuario:'.Auth::user()->name.' CPF:'.Auth::user()->document_primary." Atualizou:".$employee->name);
         session()->flash('messageInfo','Success@Ação realizada com sucesso');
         return back()->withInput();
     }
