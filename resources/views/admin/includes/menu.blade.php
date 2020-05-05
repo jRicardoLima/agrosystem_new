@@ -55,7 +55,7 @@
                                 @foreach($menusUnlocked as $menus)
                                     @if($menus->name_sub_module == 'cadastrar' && $menus->name_module == 'administrativo_funcionarios')
                                         <li class="nav-item">
-                                            <a href="{{route('source.employees.create')}}" class="nav-link">
+                                            <a href="{{route('source.employees.create')}}" class="nav-link  {{isActive('source.employees.create')}}">
                                                 <i class="far fa-dot-circle nav-icon text-danger"></i>
                                                 <p>Cadastar</p>
                                             </a>
@@ -66,7 +66,7 @@
                                 @foreach($menusUnlocked as $menus)
                                    @if($menus->name_sub_module == 'pesquisar' && $menus->name_module == 'administrativo_funcionarios')
                                         <li class="nav-item">
-                                            <a href="{{route('source.employees.search')}}" class="nav-link">
+                                            <a href="{{route('source.employees.search')}}" class="nav-link {{isActive('source.employees.search')}}">
                                                 <i class="far fa-dot-circle nav-icon text-danger"></i>
                                                 <p>Pesquisar</p>
                                             </a>
@@ -92,7 +92,7 @@
                                 @foreach($menusUnlocked as $menus)
                                     @if($menus->name_sub_module == 'cadastrar' && $menus->name_module == 'administrativo_fornecedores')
                                         <li class="nav-item">
-                                            <a href="{{route('source.companies.create')}}" class="nav-link">
+                                            <a href="{{route('source.companies.create')}}" class="nav-link {{isActive('source.companies.create')}}">
                                                 <i class="far fa-dot-circle nav-icon text-danger"></i>
                                                 <p>Cadastar</p>
                                             </a>
@@ -103,7 +103,7 @@
                                     @foreach($menusUnlocked as $menus)
                                         @if($menus->name_sub_module == 'pesquisar' && $menus->name_module == 'administrativo_fornecedores')
                                             <li class="nav-item">
-                                                <a href="{{route('source.companies.search')}}" class="nav-link">
+                                                <a href="{{route('source.companies.search')}}" class="nav-link {{isActive('source.companies.search')}}">
                                                     <i class="far fa-dot-circle nav-icon text-danger"></i>
                                                     <p>Pesquisar</p>
                                                 </a>
@@ -127,6 +127,18 @@
                             </a>
 
                             <ul class="nav nav-treeview">
+                                @foreach($menusUnlocked as $menus)
+                                    @if($menus->name_sub_module == 'cadastrar_contas' && $menus->name_module == 'administrativo_financeiro' )
+                                        <li class="nav-item">
+
+                                            <a href="{{route('source.accounts.create')}}" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon text-danger"></i>
+                                                <p>Cadastrar contas</p>
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endforeach
+
                                 @foreach($menusUnlocked as $menus)
                                     @if($menus->name_sub_module == 'contas_a_pagar' && $menus->name_module == 'administrativo_financeiro')
                                         <li class="nav-item">
