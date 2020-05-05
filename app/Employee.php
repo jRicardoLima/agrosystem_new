@@ -36,6 +36,11 @@ class Employee extends Model
         'agency'
     ];
 
+    public function AccountRelation()
+    {
+        return $this->hasMany(Account::class,'employee_id','id');
+    }
+
     public function occupationRelation()
     {
         return $this->belongsTo(Occupation::class,'occupation_id','id');
