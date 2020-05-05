@@ -11,14 +11,9 @@
 |
 */
 Route::get('/teste',function (){
-//    $documentValid = new \App\Utils\DocumentsValidator();
-//
-//
-//    $aux =  $documentValid->cpfValid('401.650.250-00');
-//    var_dump($aux);
-
-    $cpf = convertCPF('03389454152');
-    var_dump($cpf);
+//    $cnpj = convertCNPJ('61648289000144');
+//    //61.648.289/0001-44
+//    echo $cnpj;
 });
 
 Route::group(['namespace' => 'Src', 'as' => 'source.'],function(){
@@ -46,6 +41,8 @@ Route::group(['namespace' => 'Src', 'as' => 'source.'],function(){
         Route::resource('/employees','EmployeeController');
         /** Fim dos funcionarios */
         /** Fornecedores */
+        Route::get('/companies/search','CompanyController@search')->name('companies.search');
+        Route::get('/companies/delete/{company}','CompanyController@delete')->name('companies.delete');
         Route::resource('/companies','CompanyController');
         /** Fim dos fornecedores */
         Route::resource('/system','System');
