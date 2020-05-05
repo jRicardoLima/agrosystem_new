@@ -189,7 +189,13 @@ return [
         'number_of_children' => 'numero de filhos',
         'bank' => 'banco',
         'account' => 'conta',
-        'agency' => 'agencia'
+        'agency' => 'agencia',
+        'fantasy_name' => 'nome fantasia',
+        'company_name' => 'razão social',
+        'document_company_identification' => 'CNPJ',
+        'physic_person' => 'pessoa fisica',
+        'zipcode' => 'CEP',
+        'contact_one' => 'telefone 1'
     ],
 
 ];
