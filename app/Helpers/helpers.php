@@ -82,3 +82,9 @@ function convertCNPJ(?string $param){
     }
 }
 
+function isActive($href){
+    if(!empty($href)){
+        return (\Illuminate\Support\Facades\Route::currentRouteName() == $href ? 'active' : '');
+    }
+}
+
