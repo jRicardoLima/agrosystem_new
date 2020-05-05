@@ -103,7 +103,7 @@
                                     @foreach($menusUnlocked as $menus)
                                         @if($menus->name_sub_module == 'pesquisar' && $menus->name_module == 'administrativo_fornecedores')
                                             <li class="nav-item">
-                                                <a href="#" class="nav-link">
+                                                <a href="{{route('source.companies.search')}}" class="nav-link">
                                                     <i class="far fa-dot-circle nav-icon text-danger"></i>
                                                     <p>Pesquisar</p>
                                                 </a>
