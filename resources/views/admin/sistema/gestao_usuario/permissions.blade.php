@@ -98,6 +98,8 @@
                                                                  <div class="row">
                                                                      <div class="col-md-12">
 
+                                                                         <span class="text-primary"> <i>Cadastrar contas</i> : <input type="checkbox" name="administrativo_financeiro@cadastrar_contas" data-bootstrap-switch data-off-color="danger" data-on-color="success"></span>
+                                                                         <div class="py-2"></div>
                                                                          <span class="text-primary"> <i>Contas a pagar</i> : <input type="checkbox" name="administrativo_financeiro@contas_a_pagar" data-bootstrap-switch data-off-color="danger" data-on-color="success"></span>
                                                                          <div class="py-2"></div>
                                                                          <span class="text-primary"> <i>Contas a receber</i> :  <input type="checkbox" name="administrativo_financeiro@contas_a_receber" data-bootstrap-switch data-off-color="danger" data-on-color="success"></span>
