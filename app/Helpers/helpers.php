@@ -70,7 +70,15 @@ function converStringToDouble($param){
     }
 }
 
-function convertCPF($param){
-    return substr($param,0,3).".".substr($param,3,3).".".substr($param,6,3)."-".substr($param,9,2);
+function convertCPF(?string $param){
+    if(!empty($param)){
+        return substr($param,0,3).".".substr($param,3,3).".".substr($param,6,3)."-".substr($param,9,2);
+    }
+
+}
+function convertCNPJ(?string $param){
+    if(!empty($param)){
+        return substr($param,0,2).".".substr($param,2,3).".".substr($param,5,3)."/".substr($param,8,4)."-".substr($param,12,2);
+    }
 }
 
