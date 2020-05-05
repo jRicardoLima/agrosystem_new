@@ -253,6 +253,24 @@
                                                         <div class="custom-control custom-radio">
                                                             <div class="row">
                                                                 <div class="col-md-2 ml-3">
+                                                                    <span class="text-primary"><i>Cadastrar contas</i></span>
+                                                                </div>
+
+                                                                    <div class="col-md-2 ml-3">
+                                                                        <input type="radio" class="custom-control-input" id="financeiro_cadastrar_contas_ativo" name="administrativo_financeiro@cadastrar_contas" value="ativo" {{($menus->editCheckboxMenu($user->id,'administrativo_financeiro','cadastrar_contas') == true ? 'checked' : '')}}>
+                                                                        <label for="financeiro_cadastrar_contas_ativo" class="custom-control-label">Ativo</label>
+                                                                    </div>
+
+
+                                                                    <div class="col-md-2">
+                                                                        <input type="radio" class="custom-control-input" id="financeiro_cadastrar_contas_inativo" name="administrativo_financeiro@cadastrar_contas" value="inativo" {{($menus->editCheckboxMenu($user->id,'administrativo_financeiro','cadastrar_contas') == false ? 'checked' : '')}}>
+                                                                        <label for="financeiro_cadastrar_contas_inativo" class="custom-control-label">Inativo</label>
+                                                                    </div>
+
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-2 ml-3">
                                                                     <span class="text-primary"><i>Contas a pagar</i></span>
                                                                 </div>
 
