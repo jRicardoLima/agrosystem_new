@@ -13,7 +13,7 @@
                 <li class="nav-item">
                     <a class="nav-link" id="tab_company_information_private" data-toggle="pill"
                        href="#company_information_private" role="tab" aria-controls="company_information_private"
-                       aria-selected="true">Informações Pessoais</a>
+                       aria-selected="true">Informações </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="tab_company_address_information" data-toggle="pill"
@@ -46,6 +46,7 @@
                                 <div class="col-md-2">
                                     <label for="physic_person">Tipo de empresa</label>
                                     <select name="physic_person" id="physic_person" class="form-control">
+                                        <option>-----------</option>
                                         <option value="0">CNPJ</option>
                                         <option value="1">CPF</option>
                                     </select>
@@ -83,20 +84,28 @@
                                            value="{{old('state')}}">
                                 </div>
                                 <div class="col-md-4">
+                                    <label for="city">Cidade</label>
+                                    <input type="text" name="city" id="city"
+                                           class="form-control input-sm {{(!empty($errors->messages()['city'])? MessagesInputs::isInvalid($errors->messages()['city']) : '')}}"
+                                           value="{{old('city')}}">
+                                </div>
+                                <div class="col-md-4">
                                     <label for="street">Rua</label>
                                     <input type="text" name="street" id="street"
                                            class="form-control input-sm {{(!empty($errors->messages()['street'])? MessagesInputs::isInvalid($errors->messages()['street']) : '')}}"
                                            value="{{old('street')}}">
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="neighborhood">Bairro</label>
-                                    <input type="text" name="neighborhood" id="neighborhood"
-                                           class="form-control input-sm {{(!empty($errors->messages()['neighborhood'])? MessagesInputs::isInvalid($errors->messages()['neighborhood']) : '')}}"
-                                           value="{{old('street')}}">
-                                </div>
 
                             </div>
                             <div class="row">
+
+                                <div class="col-md-3">
+                                    <label for="neighborhood">Bairro</label>
+                                    <input type="text" name="neighborhood" id="neighborhood"
+                                           class="form-control input-sm {{(!empty($errors->messages()['neighborhood'])? MessagesInputs::isInvalid($errors->messages()['neighborhood']) : '')}}"
+                                           value="{{old('neighborhood')}}">
+                                </div>
+
                                 <div class="col-md-3">
                                     <label for="contact_one">Telefone 1</label>
                                     <input type="text" name="contact_one" id="contact_one"
@@ -110,7 +119,7 @@
                                            value="{{old('contact_two')}}">
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <label for="email">Email</label>
                                     <input type="text" name="email" id="email"
                                            class="form-control input-sm {{(!empty($errors->messages()['email'])? MessagesInputs::isInvalid($errors->messages()['email']) : '')}}"
@@ -131,5 +140,21 @@
     </div>
 @endsection
 @section('javascript')
+    <script src="{{url(asset('front/assets/plugins/jquery-mask/src/jquery.mask.js'))}}"></script>
+    <script type="module">
+        import {zipcodeSearch} from "./../front/assets/scripts/zipcodeSearch.js";
+        import {Mask} from './../front/assets/scripts/Mask.js';
+        import {GeneralFunction} from './../front/assets/scripts/GeneralFunction.js';
 
+        const zipcode = new zipcodeSearch('zipcode');
+        zipcode.find('state','city','street','neighborhood');
+        new Mask('#zipcode',null,'00000-000');
+        new Mask('#document_primary',null,'000.000.000-00');
+        new Mask('#document_company_identification',null,'00.000.000/0000-00');
+        new Mask('#contact_one',null,'(00)00000-0000');
+        new Mask('#contact_two',null,'(00)00000-0000');
+        const cpfCnpj = new GeneralFunction();
+
+        cpfCnpj.cpfCnpjField('physic_person','document_company_identification','document_primary');
+    </script>
 @endsection
