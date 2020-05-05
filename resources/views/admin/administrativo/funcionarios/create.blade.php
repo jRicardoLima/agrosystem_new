@@ -258,7 +258,5 @@
         new Mask('#salary', null, '##.##0,00', true)
         const generalFunction = new GeneralFunction();
         generalFunction.blockUnlockFields('children', 'number_of_children');
-
-
     </script>
 @endsection
