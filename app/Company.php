@@ -26,7 +26,10 @@ class Company extends Model
         'email',
     ];
 
-
+    public function accountRelation()
+    {
+        return $this->hasMany(Account::class,'company_id','id');
+    }
     public function setPhysicPersonAttribute($value)
     {
         return $this->attributes['physic_person'] = ($value == "1" ? 1 : 0);
