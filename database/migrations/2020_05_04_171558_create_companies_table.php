@@ -22,11 +22,12 @@ class CreateCompaniesTable extends Migration
             $table->string('document_primary')->unique()->nullable();
             $table->string('zipcode')->nullable();
             $table->string('state')->nullable();
+            $table->string('city')->nullable();
             $table->string('street')->nullable();
             $table->string('neighborhood')->nullable();
             $table->string('contact_one');
             $table->string('contact_two')->nullable();
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
