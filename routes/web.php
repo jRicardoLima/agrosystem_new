@@ -55,6 +55,10 @@ Route::group(['namespace' => 'Src', 'as' => 'source.'],function(){
         /** Contas */
         Route::resource('/accounts','AccountController');
         /** Fim das contas */
+
+        /** Produtos */
+        Route::resource('/products','ProductController');
+        /** Fim dos produtos */
         Route::resource('/system','System');
 
     });

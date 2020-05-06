@@ -29,7 +29,7 @@
         <div class="card-body" style="background-color: lightslategray">
             <div class="tab-content" id="tab_content">
                 <div class="tab-pane fade show active" id="accounts_to_pay" role="tabpanel" aria-labelledby="accounts_to_pay">
-                    <form action="{{route('source.accounts.store')}}" method="POST">
+                    <form action="{{route('source.products.store')}}" method="POST">
                         @csrf
                         <div class="form-group">
                             <div class="row">

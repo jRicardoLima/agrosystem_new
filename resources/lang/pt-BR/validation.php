@@ -195,7 +195,10 @@ return [
         'document_company_identification' => 'CNPJ',
         'physic_person' => 'pessoa fisica',
         'zipcode' => 'CEP',
-        'contact_one' => 'telefone 1'
+        'contact_one' => 'telefone 1',
+        'minimum_quantity' => 'quantidade minima',
+        'maximum_quantity' => 'quantidade maxima',
+        'companies' => 'fornecedores'
     ],
 
 ];
