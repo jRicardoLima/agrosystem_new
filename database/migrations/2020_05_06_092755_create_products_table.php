@@ -17,8 +17,8 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('type');
-            $table->float('minimum_quantity');
-            $table->float('maximum_quantity');
+            $table->float('minimum_quantity')->nullable();
+            $table->float('maximum_quantity')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

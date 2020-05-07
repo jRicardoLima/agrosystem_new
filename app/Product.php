@@ -16,7 +16,7 @@ class Product extends Model
 
     public function productsCompaniesRelation()
     {
-        return $this->belongsToMany(Company::class,'products_companies','product_id','company_id');
+        return $this->belongsToMany(Company::class,'products_companies','products_id','company_id');
     }
 
     public function setMinimumQuantityAttribute($value)

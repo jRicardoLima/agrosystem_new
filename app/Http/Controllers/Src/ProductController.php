@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Src;
 
 use App\Company;
-use App\Employee;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Src\ProductRequest;
 use App\Product;
 use App\ProductCompanies;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -33,6 +34,22 @@ class ProductController extends Controller
         return view('admin.estoque.cadastro_produtos.create')->with(['companies' => $companies]);
     }
 
+    public function search()
+    {
+        $products = Product::all();
+        return view('admin.estoque.cadastro_produtos.search')->with(['products' => $products] );
+    }
+
+    public function showCompanies($id)
+    {
+        $product = Product::find($id);
+
+        $companiesProduct = $product->productsCompaniesRelation()->get();
+
+        $json['companiesProduct'] = $companiesProduct;
+
+        return response()->json($json);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -45,10 +62,6 @@ class ProductController extends Controller
 
         $product->name = $request->name;
         $product->type = $request->type;
-        $product->minimum_quantity = $request->minimum_quantity;
-        $product->maximum_quantity = $request->maximum_quantity;
-
-
         $product->save();
         $id = $product->id;
         $dateNow = new \DateTime();
@@ -59,9 +72,9 @@ class ProductController extends Controller
                 'created_at' => $dateNow
             ]);
         }
-
-
-
+        Log::channel('systemLog')->info('Usuario:'.Auth::user()->name.' CPF:'.Auth::user()->document_primary." Cadastrou o produto:".$request->name);
+        session()->flash('messageInfo','Success@Produto cadastrado com sucesso');
+        return redirect()->route('source.products.create');
     }
 
     /**

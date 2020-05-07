@@ -26,7 +26,7 @@
                               value="{{old('name')}}">
                         </div>
 
-                        <div class="col-md-5">
+                        <div class="col-md-2">
                             <label for="type">Tipo</label>
                             <select name="type" id="type" class="form-control select2">
                                 <option value="pct" {{(old('type') == 'pct' ? 'selected' : '')}}>Pacote</option>
@@ -35,22 +35,7 @@
                             </select>
                         </div>
 
-                        <div class="col-md-2">
-                            <label for="minimum_quantity">Quntidade minima</label>
-                            <input type="text" name="minimum_quantity" id="minimum_quantity" class="form-control input-sm
-                              {{(!empty($errors->messages()['minimum_quantity'])? MessagesInputs::isInvalid($errors->messages()['minimum_quantity']) : '')}}"
-                              value="{{old('minimum_quantity')}}">
-                        </div>
-
-                        <div class="col-md-2">
-                            <label for="maximum_quantity">Quntidade maxima</label>
-                            <input type="text" name="maximum_quantity" id="maximum_quantity" class="form-control input-sm
-                              {{(!empty($errors->messages()['maximum_quantity'])? MessagesInputs::isInvalid($errors->messages()['maximum_quantity']) : '')}}"
-                                   value="{{old('maximum_quantity')}}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-7">
                             <label for="companies">Fornecedores</label>
                             <select name="companies[]" class="form-control companies" multiple="multiple">
                                 @foreach($companies as $company)
@@ -58,7 +43,9 @@
                                 @endforeach
                             </select>
                         </div>
+
                     </div>
+
                 </div>
                 <div class="row">
                     <div class="col-md-8"></div>

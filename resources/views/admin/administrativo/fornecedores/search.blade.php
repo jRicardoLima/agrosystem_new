@@ -57,7 +57,6 @@
 
     <script type="module">
         import {DataTable} from './../front/assets/scripts/DataTable.js';
-        import {GeneralFunction} from './../front/assets/scripts/GeneralFunction.js';
         new DataTable('#companies_data');
     </script>
 @endsection

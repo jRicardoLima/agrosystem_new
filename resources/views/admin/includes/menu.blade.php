@@ -223,7 +223,7 @@
                               @foreach($menusUnlocked as $menus)
                                   @if($menus->name_sub_module == 'pesquisar' && $menus->name_module == 'estoque_cadastro_produtos')
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">
+                                        <a href="{{route('source.products.search')}}" class="nav-link">
                                             <i class="far fa-dot-circle nav-icon text-danger"></i>
                                             <p>Pesquisar</p>
                                         </a>

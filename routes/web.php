@@ -57,6 +57,8 @@ Route::group(['namespace' => 'Src', 'as' => 'source.'],function(){
         /** Fim das contas */
 
         /** Produtos */
+        Route::get('/products/search','ProductController@search')->name('products.search');
+        Route::get('/products/show-companies/{product}','ProductController@showCompanies')->name('products.show-companies');
         Route::resource('/products','ProductController');
         /** Fim dos produtos */
         Route::resource('/system','System');
