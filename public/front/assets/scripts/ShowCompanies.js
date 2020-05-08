@@ -50,9 +50,9 @@ export class ShowCompanies{
                                 </tr>`
                          )
                    });
-                   //new DataTable('modelTable');
-                   $('#modalCompanies').modal('show');
 
+                   $('#modalCompanies').modal('show');
+                   new DataTable('#modalTable');
                    $('#exit').click(function () {
                        $('.modal').modal('hide');
                        $('.modal').remove();

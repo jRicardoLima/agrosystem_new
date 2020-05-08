@@ -246,11 +246,11 @@
 
                             <ul class="nav nav-treeview">
                              @foreach($menusUnlocked as $menus)
-                               @if($menus->name_sub_module == 'entrada' && $menus->name_module == 'estoque_movimentacao')
+                               @if($menus->name_sub_module == 'movimentacao_produto' && $menus->name_module == 'estoque_movimentacao')
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">
+                                        <a href="{{route('source.products.product-moviment')}}" class="nav-link">
                                             <i class="far fa-dot-circle nav-icon text-danger"></i>
-                                            <p>Entrada</p>
+                                            <p>Entrada/Saida</p>
                                         </a>
                                     </li>
                                @endif
@@ -258,11 +258,11 @@
 
 
                              @foreach($menusUnlocked as $menus)
-                              @if($menus->name_sub_module == 'saida' && $menus->name_module == 'estoque_movimentacao')
+                              @if($menus->name_sub_module == 'estoque' && $menus->name_module == 'estoque_movimentacao')
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">
+                                        <a href="{{route('source.products.list-stock')}}" class="nav-link">
                                             <i class="far fa-dot-circle nav-icon text-danger"></i>
-                                            <p>Saida</p>
+                                            <p>Ver estoque</p>
                                         </a>
                                     </li>
                               @endif

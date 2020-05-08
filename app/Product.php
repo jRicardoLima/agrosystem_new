@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use SoftDeletes;
     protected $table = 'products';
     protected $fillable = [
         'name',
@@ -17,6 +19,59 @@ class Product extends Model
     public function productsCompaniesRelation()
     {
         return $this->belongsToMany(Company::class,'products_companies','products_id','company_id');
+    }
+
+    public function productOutputRelation()
+    {
+        return $this->hasMany(ProductOutput::class,'product_id_output','id');
+    }
+
+    public function productEntryRelation()
+    {
+        return $this->hasMany(ProductEntry::class,'product_id_entry','id');
+    }
+
+    public function productStockRelation()
+    {
+        return $this->hasOne(ProductStock::class,'product_id_stock','id');
+    }
+
+    public function getStockInformationProduct($id)
+    {
+        $product = $this->find($id);
+
+        $productInformation = new \stdClass();
+
+        $productInformation->output = $product->productOutputRelation()->first()->quantity;
+        $productInformation->date_departure = $product->productOutputRelation()->first()->created_at;
+        $productInformation->entry = $product->productEntryRelation()->first()->quantity;
+        $productInformation->entry_date = $product->productEntryRelation()->first()->created_at;
+        $productInformation->stock = $product->productStockRelation()->first()->quantity_current;
+        $productInformation->entry_stock_date = $product->productStockRelation()->first()->updated_at;
+
+        return $productInformation;
+    }
+
+    public function getStockInformationAll()
+    {
+        $productStock = ProductStock::all();
+
+        $productHasStock = [];
+
+        foreach ($productStock as $stock){
+            $products = $this->find($stock->product_id_stock);
+
+            $productHasStock[] = [
+                'nameProduct' => $stock->productRelation()->first()->name,
+                'type' => $stock->productRelation()->first()->type,
+                'minimum_quantity' => $stock->productRelation()->first()->minimum_quantity,
+                'current_quantity' => $stock->quantity_current,
+                'last_entry' => ($products->productEntryRelation()->first() != null || $products->productEntryRelation()->first() != "" ? date('d/m/Y H:i:s',strtotime($products->productEntryRelation()->first()->updated_at)) : null),
+                'last_output' => ($products->productOutputRelation()->first() != null || $products->productOutputRelation()->first() != "" ? date('d/m/Y H:i:s',strtotime($products->productOutputRelation()->first()->created_at)) : null),
+
+                ];
+        }
+        return $productHasStock;
     }
 
     public function setMinimumQuantityAttribute($value)

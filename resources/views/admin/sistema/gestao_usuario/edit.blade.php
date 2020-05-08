@@ -440,33 +440,33 @@
                                                         <div class="custom-control custom-radio">
                                                             <div class="row">
                                                                 <div class="col-md-2 ml-3">
-                                                                    <span class="text-primary">Entrada</span>
+                                                                    <span class="text-primary">Entrada/Saida</span>
                                                                 </div>
 
                                                                 <div class="col-md-2 ml-3">
-                                                                    <input type="radio" class="custom-control-input" id="estoque_movimentacao_entrada_ativo" name="estoque_movimentacao@entrada" value="ativo" {{($menus->editCheckboxMenu($user->id,'estoque_movimentacao','entrada') == true ? 'checked' : '')}}>
-                                                                    <label for="estoque_movimentacao_entrada_ativo" class="custom-control-label">Ativo</label>
+                                                                    <input type="radio" class="custom-control-input" id="estoque_movimentacao_movimentacao_produto_ativo" name="estoque_movimentacao@movimentacao_produto" value="ativo" {{($menus->editCheckboxMenu($user->id,'estoque_movimentacao','movimentacao_produto') == true ? 'checked' : '')}}>
+                                                                    <label for="estoque_movimentacao_movimentacao_produto_ativo" class="custom-control-label">Ativo</label>
                                                                 </div>
 
                                                                 <div class="col-md-2">
-                                                                    <input type="radio" class="custom-control-input" id="estoque_movimentacao_entrada_inativo" name="estoque_movimentacao@entrada" value="inativo" {{($menus->editCheckboxMenu($user->id,'estoque_movimentacao','entrada') == false ? 'checked' : '')}}>
-                                                                    <label for="estoque_movimentacao_entrada_inativo" class="custom-control-label">Inativo</label>
+                                                                    <input type="radio" class="custom-control-input" id="estoque_movimentacao_movimentacao_produto_inativo" name="estoque_movimentacao@movimentacao_produto" value="inativo" {{($menus->editCheckboxMenu($user->id,'estoque_movimentacao','movimentacao_produto') == false ? 'checked' : '')}}>
+                                                                    <label for="estoque_movimentacao_movimentacao_produto_inativo" class="custom-control-label">Inativo</label>
                                                                 </div>
                                                             </div>
 
                                                             <div class="row">
                                                                 <div class="col-md-2 ml-3">
-                                                                    <span class="text-primary">Pesquisar</span>
+                                                                    <span class="text-primary">Estoque</span>
                                                                 </div>
 
                                                                 <div class="col-md-2 ml-3">
-                                                                    <input type="radio" class="custom-control-input" id="estoque_movimentacao_saida_ativo" name="estoque_movimentacao@saida" value="ativo" {{($menus->editCheckboxMenu($user->id,'estoque_movimentacao','saida') == true ? 'checked' : '')}}>
-                                                                    <label for="estoque_movimentacao_saida_ativo" class="custom-control-label">Ativo</label>
+                                                                    <input type="radio" class="custom-control-input" id="estoque_movimentacao_estoque_ativo" name="estoque_movimentacao@estoque" value="ativo" {{($menus->editCheckboxMenu($user->id,'estoque_movimentacao','estoque') == true ? 'checked' : '')}}>
+                                                                    <label for="estoque_movimentacao_estoque_ativo" class="custom-control-label">Ativo</label>
                                                                 </div>
 
                                                                 <div class="col-md-2">
-                                                                    <input type="radio" class="custom-control-input" id="estoque_movimentacao_saida_inativo" name="estoque_movimentacao@saida" value="inativo" {{($menus->editCheckboxMenu($user->id,'estoque_movimentacao','saida') == false ? 'checked' : '')}}>
-                                                                    <label for="estoque_movimentacao_saida_inativo" class="custom-control-label">Inativo</label>
+                                                                    <input type="radio" class="custom-control-input" id="estoque_movimentacao_estoque_inativo" name="estoque_movimentacao@estoque" value="inativo" {{($menus->editCheckboxMenu($user->id,'estoque_movimentacao','estoque') == false ? 'checked' : '')}}>
+                                                                    <label for="estoque_movimentacao_estoque_inativo" class="custom-control-label">Inativo</label>
                                                                 </div>
                                                             </div>
                                                         </div>

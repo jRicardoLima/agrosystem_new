@@ -35,7 +35,13 @@
                             </select>
                         </div>
 
-                        <div class="col-md-7">
+                        <div class="col-md-2">
+                            <label for="minimum_quantity">Quantidade minima</label>
+                            <input name="minimum_quantity" id="minimum_quantity" class="form-control input-sm
+                              {{(!empty($errors->messages()['minimum_quantity'])? MessagesInputs::isInvalid($errors->messages()['minimum_quantity']) : '')}}"
+                                   value="{{old('minimum_quantity')}}">
+                        </div>
+                        <div class="col-md-5">
                             <label for="companies">Fornecedores</label>
                             <select name="companies[]" class="form-control companies" multiple="multiple">
                                 @foreach($companies as $company)
@@ -43,7 +49,6 @@
                                 @endforeach
                             </select>
                         </div>
-
                     </div>
 
                 </div>

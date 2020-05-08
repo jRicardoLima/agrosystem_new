@@ -198,7 +198,9 @@ return [
         'contact_one' => 'telefone 1',
         'minimum_quantity' => 'quantidade minima',
         'maximum_quantity' => 'quantidade maxima',
-        'companies' => 'fornecedores'
+        'companies' => 'fornecedores',
+        'products' => 'produtos',
+        'quantity' => 'quantidade'
     ],
 
 ];

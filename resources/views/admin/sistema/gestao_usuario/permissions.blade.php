@@ -202,9 +202,9 @@
                                                         </div>
                                                         <div class="card-body">
                                                             <div class="form-group">
-                                                                <span class="text-primary"> <i>Entrada</i> : <input type="checkbox" name="estoque_movimentacao@entrada" data-bootstrap-switch data-off-color="danger" data-on-color="success"></span>
+                                                                <span class="text-primary"> <i>Entrada/Saida</i> : <input type="checkbox" name="estoque_movimentacao@movimentacao_produto" data-bootstrap-switch data-off-color="danger" data-on-color="success"></span>
                                                                 <div class="py-2"></div>
-                                                                <span class="text-primary"> <i>Saida</i> :  <input type="checkbox" name="estoque_movimentacao@saida" data-bootstrap-switch data-off-color="danger" data-on-color="success"></span>
+                                                                <span class="text-primary"> <i>Estoque</i> :  <input type="checkbox" name="estoque_movimentacao@estoque" data-bootstrap-switch data-off-color="danger" data-on-color="success"></span>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -42,4 +42,36 @@ export class GeneralFunction{
             });
         }
     }
+
+    searchProductQuantityInformation(id,targets){
+        if(id == "products_entry" && targets){
+            $("#"+id).change(function(){
+                let idProduct = $(this).val();
+
+                $.ajax({
+                    url: "product-moviment-quantity"+"/"+idProduct,
+                    type:'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        $("#minimum_quantity").val(response.product.minimum_quantity);
+                        $("#minimum_quantity").attr('disabled','disabled');
+                    }
+                });
+            })
+        } else {
+            $("#products_output").change(function(){
+                let idProduct = $(this).val();
+
+                $.ajax({
+                    url: "product-moviment-quantity"+"/"+idProduct,
+                    type:'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        $("#minimum_quantity_output").val(response.product.minimum_quantity);
+                        $("#minimum_quantity_output").attr('disabled','disabled');
+                    }
+                });
+            })
+        }
+    }
 }

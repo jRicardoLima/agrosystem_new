@@ -58,6 +58,15 @@ function convertDateToDatabase($date){
 
     return $newDate->format('Y-m-d');
 }
+
+function convertDateToBr($date){
+    return date('d/m/Y',strtotime($date));
+}
+
+function convertDateTimeToBr($date){
+    return date('d/m/Y H:i:s',strtotime($date));
+}
+
 function convertFloatBR($param){
     return number_format($param,2,',','.');
 }

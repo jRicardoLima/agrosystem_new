@@ -28,7 +28,6 @@ class ProductRequest extends FormRequest
            'name' => 'required|min:3',
            'type' => 'required|in:pct,cx,un',
            'minimum_quantity' => 'required|numeric',
-           'maximum_quantity' => 'required|numeric',
            'companies' => 'required|exists:companies,id'
         ];
     }

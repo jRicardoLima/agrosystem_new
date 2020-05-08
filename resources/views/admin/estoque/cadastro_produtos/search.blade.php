@@ -41,7 +41,7 @@
                                     <td><b>{{$product->name}}</b></td>
                                     <td><b>{{$product->type}}</b></td>
                                     <td><b><a class="btn btn-block bg-gradient-info btn-sm showCompanies" href="{{route('source.products.show-companies',['product' => $product->id])}}" identity="{{$product->id}}">Ver fornecedores</a></b></td>
-                                    <td><b><a class="btn btn-block bg-gradient-danger btn-sm" href="javascript:void(0)" >Excluir</a></b></td>
+                                    <td><b><a class="btn btn-block bg-gradient-danger btn-sm" href="{{route('source.products.delete',['product' => $product->id])}}" >Excluir</a></b></td>
                                 </tr>
                             @endforeach
                         </tbody>
