@@ -33,8 +33,10 @@ class Company extends Model
 
     public function companiesProductsRelation()
     {
-        return $this->belongsToMany(Product::class,'products_companies','company_id','products_id');
+        return $this->belongsToMany(Product::class, 'products_companies', 'company_id', 'products_id')->withPivot(['products_id', 'company_id']);
     }
+
+
     public function setPhysicPersonAttribute($value)
     {
         return $this->attributes['physic_person'] = ($value == "1" ? 1 : 0);

@@ -200,7 +200,8 @@ return [
         'maximum_quantity' => 'quantidade maxima',
         'companies' => 'fornecedores',
         'products' => 'produtos',
-        'quantity' => 'quantidade'
+        'quantity' => 'quantidade',
+        'aviable_companies' => 'empresas disponiveis'
     ],
 
 ];

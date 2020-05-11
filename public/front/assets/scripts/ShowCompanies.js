@@ -26,6 +26,7 @@ export class ShowCompanies{
                                                         <tr>
                                                             <th>Nome fantasia</th>
                                                             <th>Razão social</th>
+                                                            <th>Contato</th>
                                                         </tr>
                                                     </thead>
                                                    <tbody id="dataCompanies">
@@ -47,10 +48,20 @@ export class ShowCompanies{
                             `<tr>
                                  <td><b><a href="../companies/${companies.id}/edit">${companies.fantasy_name}</a></b></td>
                                   <td><b>${companies.company_name}</b></td>
+                                  <td><b>${companies.contact_one}</b></td>
                                 </tr>`
                          )
                    });
-
+                    $('.delete').click(function (event) {
+                        event.preventDefault();
+                        $.ajax({
+                            url: $(this).attr('href'),
+                            datatype: 'json',
+                            success: function(response){
+                                console.log(response);
+                            }
+                        });
+                    });
                    $('#modalCompanies').modal('show');
                    new DataTable('#modalTable');
                    $('#exit').click(function () {

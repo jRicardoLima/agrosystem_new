@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Src;
 use App\Company;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Src\CompanyRequest;
+use App\User;
+use App\Utils\ControlUrls;
 use App\Utils\DocumentsValidator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

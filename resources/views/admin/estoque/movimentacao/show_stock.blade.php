@@ -1,4 +1,8 @@
 @extends('admin.master.template')
+@section('css')
+    <link rel="stylesheet" href="{{url(asset('front/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'))}}">
+    <link rel="stylesheet" href="{{url(asset('front/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css'))}}">
+@endsection
 @section('content')
 
     <div class="card card-gray">
@@ -27,6 +31,7 @@
                                 <th>Quantidade em estoque</th>
                                 <th>Data de entrada</th>
                                 <th>Data da ultima saida</th>
+                                <th>Fornecedores</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,7 +47,7 @@
                                     @else
                                         <td><b>Não Hove saida deste produto</b></td>
                                     @endif
-
+                                    <td><a class="btn btn-block bg-gradient-info btn-sm showCompanies" href="{{route('source.products.show-companies',['product' => $product['id']])}}">Ver fornecedores</a></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -51,4 +56,24 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="loadModal"></div>
+        </div>
+    </div>
+@endsection
+@section('javascript')
+    <script src="{{url(asset('front/assets/plugins/datatables/jquery.dataTables.min.js'))}}"></script>
+    <script src="{{url(asset('front/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js'))}}"></script>
+    <script src="{{url(asset('front/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js'))}}"></script>
+    <script src="{{url(asset('front/assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js'))}}"></script>
+
+    <script type="module">
+        import {DataTable} from './../front/assets/scripts/DataTable.js';
+        import {ShowCompanies} from './../front/assets/scripts/ShowCompanies.js';
+
+        new DataTable('#stock_table');
+        new ShowCompanies('showCompanies');
+
+    </script>
 @endsection

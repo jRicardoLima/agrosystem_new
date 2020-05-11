@@ -10,6 +10,7 @@ use App\ProductCompanies;
 use App\ProductEntry;
 use App\ProductOutput;
 use App\ProductStock;
+use Doctrine\Common\Collections\ArrayCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -68,8 +69,8 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        $product = new Product();
 
+        $product = new Product();
         $product->name = $request->name;
         $product->type = $request->type;
         $product->minimum_quantity = $request->minimum_quantity;
@@ -201,19 +202,51 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        $companies = Company::all();
+        $companiesAviable = (new Product)->getCompaniesAviable($id);
+
+        return view('admin.estoque.cadastro_produtos.edit')->with(['product' => $product,'companies' => $companies,'companiesAviable' => $companiesAviable]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
-        //
+        $product = Product::find($id);
+        $product->name = $request->name;
+        $product->type = $request->type;
+        $product->minimum_quantity = $request->minimum_quantity;
+        $product->save();
+
+        session()->flash('messageInfo','Success@Dados Atualizado com sucesso');
+        return redirect()->route('products.edit',['product' => $id]);
+    }
+
+    public function addCompany(Request $request, $id)
+    {
+
+        $rules = [
+          'aviable_companies' => 'required|exists:companies,id'
+        ];
+        $request->validate($rules);
+
+        $dateNow = new \DateTime();
+        foreach ($request->aviable_companies as $item){
+            ProductCompanies::insert([
+                'company_id' => $item,
+                'products_id' => $id,
+                'created_at' => $dateNow
+            ]);
+        }
+
+        session()->flash('messageInfo','Success@Fornecedor adicionado com sucesso');
+        return redirect()->route('source.products.edit',['product' => $id]);
     }
 
     /**
@@ -227,14 +260,32 @@ class ProductController extends Controller
         //
     }
 
-    public function delete($id)
+//    public function delete($id)
+//    {
+//        $product = Product::find($id);
+//
+//        $product->delete();
+//
+//        Log::channel('systemLog')->info('Usuario:'.Auth::user()->name.' CPF:'.Auth::user()->document_primary." Excluiu o produto:".$product->name);
+//        session()->flash('messageInfo','Success@Produto Deletado com sucesso');
+//        return redirect()->route('source.products.search');
+//    }
+
+    public function deleteSupplier(Request $request,$id)
     {
-        $product = Product::find($id);
+        $rules = [
+            'companies' => 'required|exists:companies,id'
+        ];
 
-        $product->delete();
+        $request->validate($rules);
 
-        Log::channel('systemLog')->info('Usuario:'.Auth::user()->name.' CPF:'.Auth::user()->document_primary." Excluiu o produto:".$product->name);
-        session()->flash('messageInfo','Success@Produto Deletado com sucesso');
-        return redirect()->route('source.products.search');
+        foreach ($request->companies as $item){
+
+            ProductCompanies::where([
+                ['products_id','=',$id],
+                ['company_id','=',$item]
+            ])->delete();
+        }
+
     }
 }

@@ -12,9 +12,16 @@
     @endif
     <div class="card card-gray">
         <div class="card-header">
-           <h3>Cadastro de produtos</h3>
+           <h3 class="card-title">Cadastro de produtos</h3>
+            <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-2">
+                    <button class="btn btn-sm btn-warning botao" onclick="$('#cad_product').hide('slow')"><i class="fas fa-minus"></i></button>
+                    <button class="btn btn-sm btn-warning botao" onclick="$('#cad_product').show('slow')"><i class="fas fa-window-maximize"></i></button>
+                </div>
+            </div>
         </div>
-        <div class="card-body" style="background-color: lightslategray">
+        <div class="card-body" id="cad_product" style="background-color: lightslategray">
             <form action="{{route('source.products.store')}}" method="POST">
                 @csrf
                 <div class="form-group">
@@ -32,6 +39,7 @@
                                 <option value="pct" {{(old('type') == 'pct' ? 'selected' : '')}}>Pacote</option>
                                 <option value="cx" {{(old('type') == 'cx' ? 'selected' : '')}}>Caixa</option>
                                 <option value="un" {{(old('type') == 'un' ? 'selected' : '')}}>Unidade</option>
+                                <option value="kg" {{(old('type') == 'kg' ? 'selected' : '')}}>Kilo</option>
                             </select>
                         </div>
 
@@ -59,6 +67,24 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div class="card card-gray">
+        <div class="card-header">
+            <h3 class="card-title">Cadastro por XML</h3>
+
+            <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-2">
+                    <button class="btn btn-sm btn-warning botao" onclick="$('#cad_product_xml').hide('slow')"><i class="fas fa-minus"></i></button>
+                    <button class="btn btn-sm btn-warning botao" onclick="$('#cad_product_xml').show('slow')"><i class="fas fa-window-maximize"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body" id="cad_product_xml" style="background-color: lightslategray">
+
         </div>
     </div>
 @endsection

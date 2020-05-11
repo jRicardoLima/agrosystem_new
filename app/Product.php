@@ -2,8 +2,10 @@
 
 namespace App;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -18,7 +20,7 @@ class Product extends Model
 
     public function productsCompaniesRelation()
     {
-        return $this->belongsToMany(Company::class,'products_companies','products_id','company_id');
+        return $this->belongsToMany(Company::class,'products_companies','products_id','company_id')->withPivot('products_id','company_id');
     }
 
     public function productOutputRelation()
@@ -62,6 +64,7 @@ class Product extends Model
             $products = $this->find($stock->product_id_stock);
 
             $productHasStock[] = [
+                'id' => $stock->productRelation()->first()->id,
                 'nameProduct' => $stock->productRelation()->first()->name,
                 'type' => $stock->productRelation()->first()->type,
                 'minimum_quantity' => $stock->productRelation()->first()->minimum_quantity,
@@ -72,6 +75,29 @@ class Product extends Model
                 ];
         }
         return $productHasStock;
+    }
+
+    public function getCompaniesAviable($idProduct)
+    {
+        $product = $this->find($idProduct);
+
+        $companiesProduct = $product->productsCompaniesRelation()->get();
+
+        $companies = Company::all();
+
+        $companiesAviable = null;
+        $companiesNotAviable = new ArrayCollection([]);
+        foreach ($companiesProduct as $productCompany){
+            $companiesNotAviable->add($productCompany->pivot->company_id);
+        }
+
+        foreach ($companies as $company){
+            if(!$companiesNotAviable->contains($company->id)){
+                $companiesAviable[] = new ArrayCollection(['id' => $company->id, 'name' => $company->fantasy_name]);
+            }
+        }
+
+        return $companiesAviable;
     }
 
     public function setMinimumQuantityAttribute($value)
