@@ -201,7 +201,11 @@ return [
         'companies' => 'fornecedores',
         'products' => 'produtos',
         'quantity' => 'quantidade',
-        'aviable_companies' => 'empresas disponiveis'
+        'aviable_companies' => 'empresas disponiveis',
+        'requesting_user' => 'solicitante',
+        'employee_id' => 'funcionario',
+        'employee' => 'funcionario',
+        'justification' => 'justificativa',
     ],
 
 ];

@@ -4,6 +4,12 @@
     <link rel="stylesheet" href="{{url(asset('front/assets/plugins/select2/css/select2.min.css'))}}">
 @endsection
 @section('content')
+    @include('admin.includes.errors')
+    @if(session()->exists('messageInfo'))
+        @component('admin.components.message',['type' => session()->get('messageInfo')])
+            {{session()->get('messageInfo')}}
+        @endcomponent
+    @endif
 <div class="card card-gray">
     <div class="card-header">
         <ul class="nav nav-tabs" id="card_navigation" role="tablist">
@@ -23,7 +29,16 @@
                     @csrf
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
+                                <label>Solicitante</label>
+                                <select name="requesting_user" id="requesting_user" class="form-control">
+                                    <option>Selecione um funcionario</option>
+                                    @foreach($employees as $employee)
+                                        <option value="{{$employee->id}}">{{$employee->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-6">
                                 <label>Autorizador</label>
                                 <select name="employee_id" id="employee_id" class="form-control">
                                     <option>Selecione um funcionario</option>
@@ -58,6 +73,7 @@
     <script type="module">
         import {SelectTwo} from './../front/assets/scripts/SelectTwo.js';
 
+        new SelectTwo('#requesting_user',null);
         new SelectTwo('#employee_id',null);
         $('#justification').summernote();
     </script>

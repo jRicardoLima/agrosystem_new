@@ -69,24 +69,6 @@
             </form>
         </div>
     </div>
-
-    <div class="card card-gray">
-        <div class="card-header">
-            <h3 class="card-title">Cadastro por XML</h3>
-
-            <div class="row">
-                <div class="col-md-10"></div>
-                <div class="col-md-2">
-                    <button class="btn btn-sm btn-warning botao" onclick="$('#cad_product_xml').hide('slow')"><i class="fas fa-minus"></i></button>
-                    <button class="btn btn-sm btn-warning botao" onclick="$('#cad_product_xml').show('slow')"><i class="fas fa-window-maximize"></i></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-body" id="cad_product_xml" style="background-color: lightslategray">
-
-        </div>
-    </div>
 @endsection
 @section('javascript')
     <script src="{{url(asset('front/assets/plugins/select2/js/select2.full.min.js'))}}"></script>

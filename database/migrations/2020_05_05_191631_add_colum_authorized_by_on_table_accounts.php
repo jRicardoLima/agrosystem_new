@@ -14,9 +14,9 @@ class AddColumAuthorizedByOnTableAccounts extends Migration
     public function up()
     {
         Schema::table('accounts', function (Blueprint $table) {
-            $table->unsignedBigInteger('employee_id')->after('due_date');
+            //$table->unsignedBigInteger('employee_id')->after('due_date');
 
-            $table->foreign('employee_id')->references('id')->on('employees');
+            //$table->foreign('employee_id')->references('id')->on('employees');
         });
     }
 

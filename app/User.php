@@ -61,6 +61,11 @@ class User extends Authenticatable
         return $this->hasMany(Menu::class,'user_id','id');
     }
 
+    public function purchaseOrderRelation()
+    {
+        return $this->hasOne(PurchaseOrder::class,'user_id','id');
+    }
+
     public function scopeAvatar($query,$id)
     {
         return $query->select('avatar')->where('id','=',$id);

@@ -150,8 +150,6 @@ class ProductController extends Controller
 
                 $invoice->save();
             }
-
-
         }
         $entry = ProductEntry::create([
             'product_id_entry' => $request->products,

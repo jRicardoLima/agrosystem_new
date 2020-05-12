@@ -5,7 +5,7 @@ namespace App\Http\Requests\Src;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class AccountRequest extends FormRequest
+class PurchaseOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,13 +25,9 @@ class AccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'company_id' => 'required|exists:companies,id',
-            'type_payment' => 'required|in:money,credit_card,debit_card,billet,bank_cheque',
-            'installments' => 'required|numeric',
-            'value' => 'required',
-            'due_date' => 'required|date_format:d/m/Y',
-            'status' =>  'required|in:0,1',
-            'access_key_id' => 'required|min:44'
+           'requesting_user' => 'required|exists:employees,id',
+           'employee_id' => 'required|exists:employees,id',
+           'justification' => 'required|min:40',
         ];
     }
 }

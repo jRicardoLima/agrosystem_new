@@ -69,7 +69,8 @@ Route::group(['namespace' => 'Src', 'as' => 'source.'],function(){
         Route::resource('/products','ProductController');
         /** Fim dos produtos */
         /** Nota fiscal(DANFE) */
-        Route::get('/invoices/download/{invoice}','InvoiceController@download')->name('invoices.download');
+        Route::get('/invoices/download/{product_id}/{access_key}','InvoiceController@download')->name('invoices.download');
+        Route::get('/invoices/show-nfe/{invoice}','InvoiceController@showNfe')->name('invoices.show-nfe');
         /** Fim da nota fisal */
 
         /** Ordens de compra */

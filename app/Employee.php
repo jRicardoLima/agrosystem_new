@@ -50,6 +50,20 @@ class Employee extends Model
         return $this->belongsTo(Unity::class,'unity_id','id');
     }
 
+    public function purchaseOrderRelation()
+    {
+        return $this->hasOne(PurchaseOrder::class,'employee_id','id');
+    }
+
+    public function requestingPurchaseOrderRelation()
+    {
+        return $this->hasOne(PurchaseOrder::class,'requesting_user','id');
+    }
+
+    public function scopeNameEmployee($query,$id)
+    {
+        return $query->where('id','=',$id);
+    }
 
     public function setDocumentPrimaryAttribute($value)
     {

@@ -49,7 +49,7 @@
                                         <td><b>Não Hove saida deste produto</b></td>
                                     @endif
                                     <td><a class="btn btn-block bg-gradient-info btn-sm showCompanies" href="{{route('source.products.show-companies',['product' => $product['id']])}}">Ver fornecedores</a></td>
-                                    <td><a class="btn btn-block bg-gradient-info btn-sm" href="{{route('source.invoices.download',['invoice' => $product['id']])}}">Nota fiscal</a></td>
+                                    <td><a class="btn btn-block bg-gradient-info btn-sm showNfe" href="{{route('source.invoices.show-nfe',['invoice' => $product['id']])}}">Nota fiscal</a></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -63,6 +63,11 @@
             <div id="loadModal"></div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="loadModalNFE"></div>
+        </div>
+    </div>
 @endsection
 @section('javascript')
     <script src="{{url(asset('front/assets/plugins/datatables/jquery.dataTables.min.js'))}}"></script>
@@ -73,9 +78,12 @@
     <script type="module">
         import {DataTable} from './../front/assets/scripts/DataTable.js';
         import {ShowCompanies} from './../front/assets/scripts/ShowCompanies.js';
+        import {ShowNFe} from './../front/assets/scripts/ShowNFe.js';
 
         new DataTable('#stock_table');
         new ShowCompanies('showCompanies');
+        new ShowNFe('showNfe');
+
 
     </script>
 @endsection

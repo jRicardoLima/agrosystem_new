@@ -15,7 +15,7 @@ class CreateTablePurchaseOrders extends Migration
     {
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('request_number');
+            $table->integer('request_number')->unique();
             $table->text('justification');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

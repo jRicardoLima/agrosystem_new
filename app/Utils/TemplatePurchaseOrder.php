@@ -5,18 +5,25 @@ namespace App\Utils;
 
 
 use Illuminate\Support\Facades\Auth;
+use Mpdf\Mpdf;
 
 class TemplatePurchaseOrder
 {
     private $text;
     private $number;
     private $date;
-    public function __construct(string $text,int $number)
+    private $mpdf;
+    private $requestingUser;
+    private $authorizedBy;
+    public function __construct(string $text,int $number,$requestingUser,$authorizedBy,Mpdf $mpdf)
     {
         $this->text = $text;
         $this->number = $number;
         $d = new \DateTime();
         $this->date = $d->format('d/m/Y');
+        $this->requestingUser = $requestingUser;
+        $this->authorizedBy = $authorizedBy;
+        $this->mpdf = $mpdf;
     }
 
     private function header()
@@ -49,22 +56,27 @@ HEREDOC;
         <main>
             <div class="row">
                 <div class="col-md-12">
-                    <p><b>teste
-                    </b></p>
+                    $this->text
                 </div>
                 <div>
-                    <p>Solicitado Por:___________________________________________</p>
-                    <p>Autorizado Por:___________________________________________</p>
+                    <p><b>Solicitado por: $this->requestingUser </b></p>
+                    <p>Assinatura do solicitante:___________________________________________</p>
+                    <p><b>Autorizado Por: $this->authorizedBy</b></p>
+                    <p>Assinatura do autorizador:___________________________________________</p>
                     
                 </div>
             </div>
         </main>
+        <footer>
+            <small>Requsição gerada por: $user</small>
+        </footer>
 HEREDOC;
     return $html;
     }
 
     public function render()
     {
-        return $this->header().$this->main();
+        $this->mpdf->WriteHTML($this->header().$this->main());
+        $this->mpdf->Output();
     }
 }

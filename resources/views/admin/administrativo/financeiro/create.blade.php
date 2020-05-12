@@ -29,7 +29,7 @@
         <div class="card-body" style="background-color: lightslategray">
             <div class="tab-content" id="tab_content">
                 <div class="tab-pane fade show active" id="accounts_to_pay" role="tabpanel" aria-labelledby="accounts_to_pay">
-                    <form action="{{route('source.products.store')}}" method="POST">
+                    <form action="{{route('source.accounts.store')}}" method="POST">
                         @csrf
                         <div class="form-group">
                             <div class="row">
@@ -49,7 +49,7 @@
                                         <option value="money" {{(old('type_payment') == 'money' ? 'selected' : '')}}>Dinheiro</option>
                                         <option value="credit_card" {{(old('type_payment') == 'credit_card' ? 'selected' : '')}}>Cartão de crédito</option>
                                         <option value="debit_card" {{(old('type_payment') == 'debit_card' ? 'selected' : '')}}>Cartão de débito</option>
-                                        <option value="billet" {{(old('type_payment') == 'billet' ? 'selected' : '')}}>Boleto</option>
+                                        <option value="billet" {{(old('type_payment') == 'billet' ? 'selected' : '')}}>Boleto/Duplicata</option>
                                         <option value="bank_cheque" {{(old('type_payment') == 'bank_cheque' ? 'selected' : '')}}>Cheque</option>
                                     </select>
                                 </div>
@@ -69,13 +69,24 @@
                                     <input type="text" name="due_date" id="due_date" class="form-control input-sm {{(!empty($errors->messages()['due_date'])? MessagesInputs::isInvalid($errors->messages()['due_date']) : '')}}" value="{{old('due_date')}}">
                                 </div>
                                 <div class="col-md-2">
-                                    <label for="employee_id">Autorizado por</label>
-                                    <select name="employee_id" id="employee_id" class="form-control select2">
-                                        <option>Selecione um usuario</option>
-                                        @foreach($employees as $employ)
-                                            <option value="{{$employ->id}}">{{$employ->name}} ({{$employ->document_primary}})</option>
-                                        @endforeach
+                                    <label for="status">Status</label>
+                                    <select name="status" id="status" class="form-control select2">
+                                        <option value="0" selected>A pagar</option>
+                                        <option value="1">Pago</option>
+
                                     </select>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="access_key_id">Chave de acesso(NFe)</label>
+                                    <input type="text" name="access_key_id" id="access_key_id" class="form-control input-sm {{(!empty($errors->messages()['access_key_id'])? MessagesInputs::isInvalid($errors->messages()['access_key_id']) : '')}}" value="{{old('access_key_id')}}">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="request_number_id">Numero da requisição</label>
+                                    <input type="text" name="request_number_id" id="request_number_id" class="form-control input-sm {{(!empty($errors->messages()['request_number_id'])? MessagesInputs::isInvalid($errors->messages()['request_number_id']) : '')}}" value="{{old('request_number_id')}}">
                                 </div>
                             </div>
                         </div>

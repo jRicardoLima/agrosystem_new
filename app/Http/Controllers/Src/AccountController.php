@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Src;
 
+use App\Account;
 use App\Company;
 use App\Employee;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Src\AccountRequest;
+use App\Invoice;
+use App\PurchaseOrder;
+use App\Utils\DocumentsValidator;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -27,11 +32,7 @@ class AccountController extends Controller
     public function create()
     {
         $companies = Company::all();
-        $employees = Employee::all();
-       return view('admin.administrativo.financeiro.create')->with([
-           'companies' => $companies,
-           'employees' => $employees
-           ]);
+       return view('admin.administrativo.financeiro.create')->with(['companies' => $companies,]);
     }
 
     /**
@@ -40,9 +41,39 @@ class AccountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AccountRequest $request)
     {
-        //
+
+       $validKeyAccess = (new DocumentsValidator())->invoiceAccessKey(cleanSpaceString($request->access_key_id));
+       if($validKeyAccess){
+
+           $newAccount = new Account();
+           $newAccount->company_id = $request->company_id;
+           $newAccount->type_payment = $request->type_payment;
+           $newAccount->installments = $request->installments;
+           $newAccount->value = $request->value;
+           $newAccount->due_date = $request->due_date;
+           $newAccount->status = $request->status;
+
+           $keyAccess = Invoice::accessKey(cleanSpaceString($request->access_key_id))->get()->first();
+
+           if($keyAccess){
+               $newAccount->access_key_id = $keyAccess->id;
+           } else {
+               session()->flash('messageInfo','Warning@Nota fiscal não existe no banco de dados');
+               return back()->withInput();
+           }
+           $requestNumber = PurchaseOrder::requestNumber(clearVars(['-',' ','.','*'],$request->request_number_id))->get()->first();
+
+           if($requestNumber){
+               $newAccount->request_number_id = $requestNumber->id;
+           }
+
+          $newAccount->save();
+       }else{
+           session()->flash('messageInfo','Warning@Chave de acesso invalido');
+           return back()->withInput();
+       }
     }
 
     /**
