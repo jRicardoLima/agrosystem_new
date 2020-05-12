@@ -28,7 +28,7 @@
         <div class="card-body" style="background-color: lightslategray">
             <div class="tab-content" id="tab_content">
                 <div class="tab-pane fade show active" id="product_entry" role="tabpanel" aria-labelledby="product_entry">
-                    <form action="{{route('source.products.product-moviment-entry')}}" method="POST">
+                    <form action="{{route('source.products.product-moviment-entry')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <div class="row">
@@ -53,6 +53,18 @@
                                     <input type="text" name="quantity" id="quantity" class="form-control input-sm {{(!empty($errors->messages()['quantity'])? MessagesInputs::isInvalid($errors->messages()['quantity']) : '')}}" value="{{old('quantity')}}">
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>DANFE(NFe)</label>
+                                    <input type="file" name="invoice" id="invoice" class="form-control input-sm {{(!empty($errors->messages()['invoice'])? MessagesInputs::isInvalid($errors->messages()['invoice']) : '')}}" value="{{old('invoice')}}">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label>Chave de acesso</label>
+                                    <input type="text" name="access_key" id="access_key" class="form-control input-sm {{(!empty($errors->messages()['access_key'])? MessagesInputs::isInvalid($errors->messages()['access_key']) : '')}}" value="{{old('access_key')}}">
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-8"></div>
@@ -68,7 +80,7 @@
                         @csrf
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <label for="products">Produto</label>
                                     <select name="products" id="products_output" class="form-control">
                                         <option>Selecione um produto</option>
@@ -87,6 +99,16 @@
                                     <label for="quantity">Quantidade de saida</label>
                                     <input type="text" name="quantity" id="quantity_output" class="form-control input-sm {{(!empty($errors->messages()['quantity'])? MessagesInputs::isInvalid($errors->messages()['quantity']) : '')}}" value="{{old('quantity')}}">
                                 </div>
+
+                                <div class="col-md-3">
+                                    <label for="unity_id">Unidade</label>
+                                   <select name="unity_id" id="unity_id" class="form-control">
+                                       <option>Selecione uma unidade</option>
+                                       @foreach($unities as $unity)
+                                           <option value="{{$unity->id}}">{{$unity->name}}</option>
+                                       @endforeach
+                                   </select>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -103,7 +125,7 @@
 @endsection
 @section('javascript')
     <script src="{{url(asset('front/assets/plugins/select2/js/select2.full.min.js'))}}"></script>
-
+    <script src="{{url(asset('front/assets/plugins/jquery-mask/src/jquery.mask.js'))}}"></script>
     <script type="module">
         import {SelectTwo} from './../front/assets/scripts/SelectTwo.js';
         import {GeneralFunction} from './../front/assets/scripts/GeneralFunction.js'

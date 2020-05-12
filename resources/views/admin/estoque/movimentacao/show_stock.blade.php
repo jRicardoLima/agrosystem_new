@@ -32,6 +32,7 @@
                                 <th>Data de entrada</th>
                                 <th>Data da ultima saida</th>
                                 <th>Fornecedores</th>
+                                <th>Nota fiscal</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,6 +49,7 @@
                                         <td><b>Não Hove saida deste produto</b></td>
                                     @endif
                                     <td><a class="btn btn-block bg-gradient-info btn-sm showCompanies" href="{{route('source.products.show-companies',['product' => $product['id']])}}">Ver fornecedores</a></td>
+                                    <td><a class="btn btn-block bg-gradient-info btn-sm" href="{{route('source.invoices.download',['invoice' => $product['id']])}}">Nota fiscal</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

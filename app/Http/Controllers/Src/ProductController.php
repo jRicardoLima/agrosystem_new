@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Src;
 use App\Company;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Src\ProductRequest;
+use App\Invoice;
 use App\Product;
 use App\ProductCompanies;
 use App\ProductEntry;
 use App\ProductOutput;
 use App\ProductStock;
+use App\Unity;
+use App\Utils\DocumentsValidator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -103,8 +106,8 @@ class ProductController extends Controller
     public function productMoviment()
     {
         $products = Product::all();
-
-        return view('admin.estoque.movimentacao.product_movement')->with(['products' => $products]);
+        $unities = Unity::all();
+        return view('admin.estoque.movimentacao.product_movement')->with(['products' => $products,'unities' => $unities]);
     }
 
     public function productMovimentQuantity($id)
@@ -121,10 +124,35 @@ class ProductController extends Controller
         $rules = [
             'products' => 'required|exists:products,id',
             'minimum_quantity' => 'numeric',
-            'quantity' => 'required|numeric'
+            'quantity' => 'required|numeric',
+            'invoice' => 'required|mimes:pdf',
+            'access_key' => 'required|min:44'
         ];
 
         $request->validate($rules);
+        $keyNfe = (new DocumentsValidator())->invoiceAccessKey(cleanSpaceString($request->access_key));
+        if($keyNfe){
+
+            $invoice = new Invoice();
+
+            $invoice->product_id = $request->products;
+            $invoice->access_key = cleanSpaceString($request->access_key);
+            $checkKey = $invoice->where('access_key','=',$request->access_key)->get()->first();
+
+            if($checkKey != null){
+
+               $invoice->path = $checkKey->path;
+
+               $invoice->save();
+            } else {
+                $name = $request->file('invoice')->getClientOriginalName();
+                $invoice->path = $request->file('invoice')->storeAs("danfes",cleanSpaceString($request->access_key)."@".$name);
+
+                $invoice->save();
+            }
+
+
+        }
         $entry = ProductEntry::create([
             'product_id_entry' => $request->products,
             'quantity' => $request->quantity
@@ -156,7 +184,8 @@ class ProductController extends Controller
         $rules = [
             'products' => 'required|exists:products,id',
             'minimum_quantity' => 'numeric',
-            'quantity' => 'required|numeric'
+            'quantity' => 'required|numeric',
+            'unity_id' => 'required|exists:unities,id'
         ];
 
         $request->validate($rules);
@@ -164,7 +193,8 @@ class ProductController extends Controller
         if(!empty($stock) && $stock != null) {
             $output = ProductOutput::create([
                 'product_id_output' => $request->products,
-                'quantity' => $request->quantity
+                'quantity' => $request->quantity,
+                'unity_id' => $request->unity_id
             ]);
         } else {
             session()->flash('messageInfo','Warning@Não existe este produto cadastrado no estoque');

@@ -14,14 +14,11 @@
 use App\Product;
 
 Route::get('/teste',function (){
-    $product = Product::find(7);
-
-    $productCompany = $product->productsCompaniesRelation()->get();
-
-    //var_dump($productCompany);
-foreach ($productCompany as $item){
-    echo $item->id."<br>";
-}
+    $mpdf = new \Mpdf\Mpdf();
+//return view('admin.estoque.purchase_order');
+    $template = new \App\Utils\TemplatePurchaseOrder('testando o texto',123123);
+ $mpdf->WriteHTML($template->render());
+ $mpdf->Output();
 });
 
 Route::group(['namespace' => 'Src', 'as' => 'source.'],function(){
@@ -71,6 +68,13 @@ Route::group(['namespace' => 'Src', 'as' => 'source.'],function(){
         Route::delete('/products/delete-supplier/{product}','ProductController@deleteSupplier')->name('products.delete-supplier');
         Route::resource('/products','ProductController');
         /** Fim dos produtos */
+        /** Nota fiscal(DANFE) */
+        Route::get('/invoices/download/{invoice}','InvoiceController@download')->name('invoices.download');
+        /** Fim da nota fisal */
+
+        /** Ordens de compra */
+        Route::resource('/purchase-orders','PurchaseOrderController');
+        /** Fim das ordens de compra */
         Route::resource('/system','System');
 
     });

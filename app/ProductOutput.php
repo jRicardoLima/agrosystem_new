@@ -12,7 +12,8 @@ class ProductOutput extends Model
 
     protected $fillable = [
       'product_id_output',
-      'quantity'
+      'quantity',
+      'unity_id'
     ];
 
     public function productRelation()
@@ -20,6 +21,10 @@ class ProductOutput extends Model
         return $this->belongsTo(Product::class,'product_id_output','id');
     }
 
+    public function unityRelation()
+    {
+        return $this->belongsTo(Unity::class,'unity_id','id');
+    }
     public function getCreatedAtAttribute($value)
     {
         return $this->attributes['created_at'] = convertDateTimeToBr($value);

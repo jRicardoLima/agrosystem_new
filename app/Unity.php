@@ -20,4 +20,9 @@ class Unity extends Model
     {
         return $this->hasOne(Employee::class,'unity_id','id');
     }
+
+    public function productOutputRelation()
+    {
+        return $this->hasMany(ProductOutput::class,'unity_id','id');
+    }
 }

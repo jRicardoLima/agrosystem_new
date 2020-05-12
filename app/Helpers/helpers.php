@@ -97,3 +97,8 @@ function isActive($href){
     }
 }
 
+function cleanSpaceString(string $param,string $delimiter = " "){
+    $aux = explode($delimiter,$param);
+    $axu = implode("",$aux);
+    return $axu;
+}

@@ -7,6 +7,7 @@ namespace App\Utils;
 use Brazanation\Documents\Cnpj;
 use Brazanation\Documents\Cpf;
 use Brazanation\Documents\Exception\InvalidDocument;
+use Brazanation\Documents\Sped\NFe;
 
 class DocumentsValidator
 {
@@ -73,5 +74,18 @@ class DocumentsValidator
             return true;
         }
 
+    }
+
+    public function invoiceAccessKey(string $key)
+    {
+
+
+        $document = NFe::createFromString($key);
+
+        if(false === $document){
+            return false;
+        } else {
+            return true;
+        }
     }
 }

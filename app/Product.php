@@ -38,6 +38,12 @@ class Product extends Model
         return $this->hasOne(ProductStock::class,'product_id_stock','id');
     }
 
+    public function invoiceRelation()
+    {
+        return $this->hasMany(Invoice::class,'product_id','id');
+    }
+
+
     public function getStockInformationProduct($id)
     {
         $product = $this->find($id);
@@ -70,7 +76,7 @@ class Product extends Model
                 'minimum_quantity' => $stock->productRelation()->first()->minimum_quantity,
                 'current_quantity' => $stock->quantity_current,
                 'last_entry' => ($products->productEntryRelation()->first() != null || $products->productEntryRelation()->first() != "" ? date('d/m/Y H:i:s',strtotime($products->productEntryRelation()->first()->updated_at)) : null),
-                'last_output' => ($products->productOutputRelation()->first() != null || $products->productOutputRelation()->first() != "" ? date('d/m/Y H:i:s',strtotime($products->productOutputRelation()->first()->created_at)) : null),
+                'last_output' => ($products->productOutputRelation()->first() != null || $products->productOutputRelation()->first() != "" ? $products->productOutputRelation()->first()->created_at : ''),
 
                 ];
         }

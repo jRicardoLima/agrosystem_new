@@ -189,7 +189,7 @@
                      @foreach($menusUnlocked as $menus)
                        @if($menus->name_sub_module == 'ordens_de_compra' && $menus->name_module == 'estoque_ordens_compra')
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{route('source.purchase-orders.create')}}" class="nav-link">
                                     <i class="far fa-dot-circle nav-icon text-danger"></i>
                                     <p>Ordens de compra</p>
                                 </a>
