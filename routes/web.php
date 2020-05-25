@@ -14,11 +14,26 @@
 use App\Product;
 
 Route::get('/teste',function (){
-    $mpdf = new \Mpdf\Mpdf();
-//return view('admin.estoque.purchase_order');
-    $template = new \App\Utils\TemplatePurchaseOrder('testando o texto',123123);
- $mpdf->WriteHTML($template->render());
- $mpdf->Output();
+
+   $companies = \App\Company::all();
+   $employees = \App\Employee::all();
+   $accounts = \App\Account::all();
+  $arrayOne = ['a'=> 'a','b' => 'b', 'c' => 'c'];
+  $arrayTwo = ['a1'=> 'a1','b2' => 'b2', 'c3' => 'c3'];
+  $arrayThree = ['1'=> '1','2' => '2', '3' => '3'];
+  //$objStorage = new SplObjectStorage();
+  $collection = new \Doctrine\Common\Collections\ArrayCollection(['companies' => $companies,'employees' => $employees]);
+
+  //$objStorage->attach($companies,\App\Company::all());
+  //$objStorage->attach($employees,\App\Employee::all());
+  //$collection->add($arrayOne);
+  //$collection->add($arrayTwo);
+  //$collection->add($arrayThree);
+  //var_dump($collection->get('companies'));
+    //var_dump($objStorage[$employees]);
+  foreach ($collection['employees'] as $item){
+      var_dump($item->name);
+ }
 });
 
 Route::group(['namespace' => 'Src', 'as' => 'source.'],function(){

@@ -27,10 +27,6 @@ class AccountRequest extends FormRequest
         return [
             'company_id' => 'required|exists:companies,id',
             'type_payment' => 'required|in:money,credit_card,debit_card,billet,bank_cheque',
-            'installments' => 'required|numeric',
-            'value' => 'required',
-            'due_date' => 'required|date_format:d/m/Y',
-            'status' =>  'required|in:0,1',
             'access_key_id' => 'required|min:44'
         ];
     }

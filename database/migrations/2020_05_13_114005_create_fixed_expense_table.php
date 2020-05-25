@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAccountsTable extends Migration
+class CreateFixedExpenseTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('fixed_expenses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('company_id');
-            $table->string('type_payment')->nullable();
+            $table->string('name_fixed_product');
+            $table->unsignedBigInteger('companies_id');
+            $table->string('type');
+            $table->decimal('value');
+            $table->date('due_date');
+            $table->boolean('status')->default(0);
             $table->timestamps();
-
-            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 
@@ -30,6 +32,6 @@ class CreateAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('fixed_expenses');
     }
 }
