@@ -36,6 +36,15 @@ class Company extends Model
         return $this->belongsToMany(Product::class, 'products_companies', 'company_id', 'products_id')->withPivot(['products_id', 'company_id']);
     }
 
+    public function fixedAccountRelation()
+    {
+        return $this->hasMany(FixedAccount::class,'companies_id','id');
+    }
+
+    public function exepenseFuelRelation()
+    {
+        return $this->hasMany(ExpenseFuel::class,'company_id','id');
+    }
 
     public function setPhysicPersonAttribute($value)
     {

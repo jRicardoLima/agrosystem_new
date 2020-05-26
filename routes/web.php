@@ -14,26 +14,43 @@
 use App\Product;
 
 Route::get('/teste',function (){
+    $installments = \App\Installment::all();
 
-   $companies = \App\Company::all();
-   $employees = \App\Employee::all();
-   $accounts = \App\Account::all();
-  $arrayOne = ['a'=> 'a','b' => 'b', 'c' => 'c'];
-  $arrayTwo = ['a1'=> 'a1','b2' => 'b2', 'c3' => 'c3'];
-  $arrayThree = ['1'=> '1','2' => '2', '3' => '3'];
-  //$objStorage = new SplObjectStorage();
-  $collection = new \Doctrine\Common\Collections\ArrayCollection(['companies' => $companies,'employees' => $employees]);
+    $collectionAccount = null;
 
-  //$objStorage->attach($companies,\App\Company::all());
-  //$objStorage->attach($employees,\App\Employee::all());
-  //$collection->add($arrayOne);
-  //$collection->add($arrayTwo);
-  //$collection->add($arrayThree);
-  //var_dump($collection->get('companies'));
-    //var_dump($objStorage[$employees]);
-  foreach ($collection['employees'] as $item){
-      var_dump($item->name);
- }
+    foreach ($installments as $installment) {
+        if ($installment->status == 0) {
+            $collectionAccount[] = new \Doctrine\Common\Collections\ArrayCollection([
+                'compania' => $installment->accountRelation()->get()->first()->companyRelation()->get()->first()->fantasy_name,
+                'tipo_de_pagamento' => $installment->accountRelation()->get()->first()->type_payment,
+                'Nota_fiscal' => $installment->accountRelation()->get()->first()->invoiceRelation()->get()->first()->access_key,
+                'valor' => $installment->value,
+                'data_vencimento' => $installment->due_date,
+                'status' => $installment->status
+            ]);
+        }
+    }
+    $collectionFixedExpenses = null;
+    $fixedExpenses = \App\FixedAccount::all();
+
+    foreach ($fixedExpenses as $fixedExpens) {
+        $collectionFixedExpenses[] = new \Doctrine\Common\Collections\ArrayCollection([
+            'nome_produto' => $fixedExpens->name_fixed_product,
+            'compania_despesa_fixa' => $fixedExpens->CompanyRelation()->get()->first()->fantasy_name,
+            'valor_despesa_fixa' => $fixedExpens->value,
+            'data_vencimento_despesa_fixa' => $fixedExpens->due_date
+        ]);
+    }
+
+    $collectionExpensesFull = new \Doctrine\Common\Collections\ArrayCollection(['despesa_produto' => $collectionAccount,'despesa_fixa' => $collectionFixedExpenses]);
+    var_dump($collectionExpensesFull);
+    foreach ($collectionExpensesFull as $key => $item){
+        if($key == 'despesa_produto'){
+            foreach ($item as $chave => $valor){
+                var_dump($valor['compania']);
+            }
+        }
+    }
 });
 
 Route::group(['namespace' => 'Src', 'as' => 'source.'],function(){
@@ -69,7 +86,17 @@ Route::group(['namespace' => 'Src', 'as' => 'source.'],function(){
         /** Contas */
         Route::resource('/accounts','AccountController');
         /** Fim das contas */
+        /** Despesas fixas */
+        Route::resource('/fixed-accounts','FixedAccountController');
+        /** Fim desepesas fixas */
 
+        /** Despesas combustivel/lubrificantes */
+        Route::resource('/expenses-fuel','ExpenseFuelController');
+        /** Fim Despesas combustivel/lubrificantes */
+
+        /** Lista de despesas */
+        Route::resource('/list-expenses','ListExpenseController');
+        /** Fim da lista de despesas */
         /** Produtos */
         Route::get('/products/search','ProductController@search')->name('products.search');
         Route::get('/products/show-companies/{product}','ProductController@showCompanies')->name('products.show-companies');

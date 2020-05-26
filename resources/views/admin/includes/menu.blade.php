@@ -142,7 +142,7 @@
                                 @foreach($menusUnlocked as $menus)
                                     @if($menus->name_sub_module == 'contas_a_pagar' && $menus->name_module == 'administrativo_financeiro')
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="{{route('source.list-expenses.index')}}" class="nav-link">
                                                 <i class="far fa-dot-circle nav-icon text-danger"></i>
                                                 <p>Contas a pagar</p>
                                             </a>

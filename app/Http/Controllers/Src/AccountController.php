@@ -72,7 +72,7 @@ class AccountController extends Controller
            }
            $requestNumber = PurchaseOrder::requestNumber(clearVars(['-',' ','.','*'],$request->request_number_id))->get()->first();
 
-           if($requestNumber){
+           if($requestNumber != null){
                $newAccount->request_number_id = $requestNumber->id;
            }
 

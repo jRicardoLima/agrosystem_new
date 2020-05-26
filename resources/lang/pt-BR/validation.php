@@ -206,6 +206,16 @@ return [
         'employee_id' => 'funcionario',
         'employee' => 'funcionario',
         'justification' => 'justificativa',
+        'company_id' => 'fornecedor',
+        'name_fixed_product' => 'tipo da conta',
+        'value' => 'valor',
+        'due_date' => 'data de vencimento',
+        'name_product_fuel' => 'nome do produto',
+        'number request fuel' => 'numero da requisição',
+        'quantity_fuel' => 'quantidade',
+        'value_fuel' => 'valor',
+        'due_date_fuel' => 'data de vencimento',
+        'invoice_fuel_key' => 'chave de acesso'
     ],
 
 ];

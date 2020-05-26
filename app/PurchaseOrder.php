@@ -36,6 +36,11 @@ class PurchaseOrder extends Model
         return $this->hasMany(Account::class,'request_number_id','id');
     }
 
+    public function expenseFuelRelation()
+    {
+        return $this->hasOne(ExpenseFuel::class,'purchase_id','id');
+    }
+
     public function scopeRequestNumber($query,$requestNumber)
     {
         return $query->where('request_number','=',$requestNumber);
